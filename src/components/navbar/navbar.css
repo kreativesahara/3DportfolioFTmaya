@@ -1,0 +1,14 @@
+li:hover {
+    cursor: pointer;
+    color: #ff0000;
+    transition: color 0.5s ease;
+}
+
+li:visited {
+    background-color: #cccccc;
+    color: #000000;
+    transition: background-color 0.5s ease;
+}
+.navbar {
+    z-index: 2;
+}

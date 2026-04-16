@@ -1,0 +1,66 @@
+html{
+    background-color: rgb(48, 71, 72);
+}
+main{
+    
+    display: flex;
+}
+h1,h2,h3,h4,h5,h6{
+    color: aliceblue;
+    text-align: center;
+    padding: 20px 0;
+}
+p{
+    font-family: Arial, sans-serif;
+    color: white;
+    padding: 20px 0;
+}
+header{
+    background-image: url(./assets/animateone.gif);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 80vh;
+    color: rgb(255, 255, 255);
+}
+.title{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 2em;
+    margin-top: 20vh;
+}
+.avatar {
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    height: fit-content;
+    margin: 20px;
+    background-color: rgb(228, 67, 67);
+}
+footer {
+  
+    background-color: rgb(255, 255, 255);
+    color: rgb(47, 0, 255);
+    margin-top: 20px;
+}
+.box{
+    margin: 0;
+    background-color: rgb(219, 203, 203);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    padding-bottom: 60px;
+}
+
+.avatar img{
+    border-radius: 33%;
+
+} 
+.footer{
+    height: 100px;
+    width: 33%;
+    text-align: left;
+    padding: 20px;
+    margin: 10px;
+}  
