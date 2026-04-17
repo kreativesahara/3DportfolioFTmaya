@@ -1,151 +1,238 @@
 /* ============================================================
-   Clock Component — Glassmorphism Time Display
+   Clock Component — Modern Unit-Based Display
    ============================================================ */
 
-/* ── Clock Section ──────────────────────────────────────── */
 .clock-section {
-  margin-top: var(--space-xl);
   position: relative;
   width: 100%;
-  min-height: 70vh;
+  min-height: 60vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding: var(--space-xl) var(--space-lg);
+  padding: var(--space-2xl) var(--space-md);
+  margin-top: var(--space-xl);
 }
 
-/* Floating gradient blob — top right */
-.clock-section::before {
-  content: '';
-  position: absolute;
-  top: 10%;
-  right: 5%;
-  width: 200px;
-  height: 200px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--color-accent-warm), var(--color-accent-primary));
-  animation: blobFloat 5s ease-in-out infinite;
-  opacity: 0.6;
-  filter: blur(2px);
-}
-
-/* Floating gradient blob — bottom left */
+/* Ambient Floating Blobs */
+.clock-section::before,
 .clock-section::after {
   content: '';
   position: absolute;
-  bottom: 10%;
-  left: 5%;
-  width: 180px;
-  height: 180px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--color-accent-secondary), var(--color-accent-glow));
-  animation: blobFloat 5s ease-in-out infinite;
-  animation-delay: -2.5s;
-  opacity: 0.6;
-  filter: blur(2px);
+  width: 300px;
+  height: 300px;
+  border-radius: var(--radius-full);
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.4;
+  animation: blobFloat 10s ease-in-out infinite alternate;
+}
+
+.clock-section::before {
+  top: 0;
+  right: -50px;
+  background: var(--color-accent-primary);
+}
+
+.clock-section::after {
+  bottom: 0;
+  left: -50px;
+  background: var(--color-accent-secondary);
+  animation-delay: -5s;
 }
 
 @keyframes blobFloat {
-  0%, 100% { transform: translateY(20px); }
-  50%      { transform: translateY(-20px); }
-}
-
-/* ── Greeting ───────────────────────────────────────────── */
-.greeting {
-  position: absolute;
-  top: var(--space-xl);
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
-  font-family: var(--font-sans);
-  font-weight: 700;
-  color: var(--color-text-primary);
-  text-shadow: 0 0 20px rgba(108, 99, 255, 0.4);
-  white-space: nowrap;
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(50px, 50px) scale(1.1); }
 }
 
 /* ── Clock Card ─────────────────────────────────────────── */
-.clock {
-  padding: var(--space-2xl) var(--space-xl);
+.clock-card {
   position: relative;
-  width: fit-content;
-  max-width: 100%;
-  background: var(--color-surface-glass);
-  box-shadow: var(--shadow-lg);
   z-index: 1;
-  border-radius: var(--radius-xl);
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--color-border);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-}
-
-/* ── Time Digits Container ──────────────────────────────── */
-.clock .container {
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  height: 100%;
-  gap: var(--space-xs);
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
-.clock .container h2 {
-  font-size: clamp(1.5rem, 5vw, 4rem);
-  font-family: var(--font-mono);
+.clock-greeting {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  margin-bottom: var(--space-xs);
+}
+
+.clock-date {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-text-primary);
-  padding: 0;
+  margin-top: -0.5rem;
+  margin-bottom: var(--space-lg);
+}
+
+/* ── Display Layout ─────────────────────────────────────── */
+.clock-display {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.clock-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.clock-digit {
+  font-family: var(--font-mono);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
   line-height: 1;
 }
 
-/* Digit blocks */
-.clock .container h2:nth-child(odd) {
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  background: var(--color-surface-glass);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
+.clock-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-accent-primary);
+  margin-top: 5px;
+  letter-spacing: 0.1rem;
 }
 
-/* Colons — accent color */
-.clock .container h2:nth-child(even) {
-  color: var(--color-accent-primary);
-  padding: 0 2px;
+.clock-sep {
+  font-family: var(--font-mono);
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--color-border);
+  line-height: 1;
+}
+
+/* MS Styling */
+.clock-unit--ms {
+  min-width: 60px;
+}
+
+.clock-digit--ms {
+  font-size: 2rem;
+  color: var(--color-text-secondary);
+}
+
+.clock-sep--thin {
+  font-size: 2rem;
+  color: var(--color-accent-secondary);
+  opacity: 0.5;
+}
+
+.clock-ampm {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--gradient-brand);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  margin-left: 10px;
+  align-self: center;
+}
+
+/* ── Progress Bar ───────────────────────────────────────── */
+.clock-progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: var(--space-md);
+}
+
+.clock-progress-fill {
+  height: 100%;
+  background: var(--gradient-brand);
+  box-shadow: 0 0 10px var(--color-accent-secondary);
+  transition: width 0.1s linear;
 }
 
 /* ── Responsive ─────────────────────────────────────────── */
-@media (max-width: 767px) {
-  .clock-section {
-    min-height: 50vh;
+@media (max-width: 768px) {
+  .clock-card {
+    padding: var(--space-xl) var(--space-md);
   }
 
-  .clock-section::before {
-    width: 120px;
-    height: 120px;
-    top: 5%;
-    right: 2%;
+  .clock-display {
+    gap: var(--space-sm);
   }
 
-  .clock-section::after {
-    width: 100px;
-    height: 100px;
-    bottom: 5%;
-    left: 2%;
+  .clock-unit {
+    min-width: 50px;
   }
 
-  .clock {
-    padding: var(--space-xl) var(--space-lg);
+  .clock-digit {
+    font-size: 2.5rem;
+  }
+
+  .clock-sep {
+    font-size: 2rem;
+  }
+
+  .clock-digit--ms {
+    font-size: 1.25rem;
+  }
+
+  .clock-unit--ms {
+    min-width: 40px;
+  }
+
+  .clock-date {
+    font-size: 1rem;
+  }
+
+  .clock-ampm {
+    font-size: 0.75rem;
+    padding: 2px 6px;
   }
 }
 
 @media (max-width: 480px) {
-  .clock .container h2 {
-    font-size: 1.25rem;
+  .clock-display {
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
-  .clock .container h2:nth-child(odd) {
-    padding: var(--space-xs) var(--space-sm);
+  .clock-unit {
+    min-width: 40px;
+  }
+
+  .clock-digit {
+    font-size: 2rem;
+  }
+
+  .clock-sep {
+    display: none; /* Hide colons on very small screens for better spacing */
+  }
+
+  .clock-unit--ms {
+    display: none; /* Hide MS on smallest viewports to save space */
+  }
+
+  .clock-sep--thin {
+      display: none;
   }
 }

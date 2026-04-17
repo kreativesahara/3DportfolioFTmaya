@@ -204,6 +204,13 @@ header {
   overflow: hidden;
 }
 
+/* Mobile: 75vh so content below the fold is hinted at */
+@media (max-width: 767px) {
+  header {
+    min-height: 75vh;
+  }
+}
+
 /* Dark overlay on top of the background gif */
 header::before {
   content: '';
