@@ -1,112 +1,151 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: consolas;
-}
+/* ============================================================
+   Clock Component — Glassmorphism Time Display
+   ============================================================ */
 
-/* src\components\clock\clock.css */
-.greeting {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5em;
-    color: #fff;
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
+/* ── Clock Section ──────────────────────────────────────── */
 .clock-section {
-    margin-top: 40px;
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin-top: var(--space-xl);
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: var(--space-xl) var(--space-lg);
 }
 
+/* Floating gradient blob — top right */
 .clock-section::before {
-    content: '';
-    position: absolute;
-    top: 10%;
-    right: 10%;
-    width: 300px;
-    height: 300px;
-    border-radius: 10px;
-    background: linear-gradient(#f9d924, #ff2c24);
-    animation: animate 5s ease-in-out infinite;
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-accent-warm), var(--color-accent-primary));
+  animation: blobFloat 5s ease-in-out infinite;
+  opacity: 0.6;
+  filter: blur(2px);
 }
 
+/* Floating gradient blob — bottom left */
 .clock-section::after {
-    content: '';
-    position: absolute;
-    bottom: 10%;
-    left: 10%;
-    width: 250px;
-    height: 250px;
-    border-radius: 10px;
-    background: linear-gradient(#01d6ff, #0f24f9);
-    animation: animate 5s ease-in-out infinite;
-    animation-delay: -2.5s;
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-accent-secondary), var(--color-accent-glow));
+  animation: blobFloat 5s ease-in-out infinite;
+  animation-delay: -2.5s;
+  opacity: 0.6;
+  filter: blur(2px);
 }
 
-@keyframes animate {
-
-    0%,
-    100% {
-        transform: translateY(20px);
-    }
-
-    50% {
-        transform: translateY(-20px);
-    }
+@keyframes blobFloat {
+  0%, 100% { transform: translateY(20px); }
+  50%      { transform: translateY(-20px); }
 }
 
+/* ── Greeting ───────────────────────────────────────────── */
+.greeting {
+  position: absolute;
+  top: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-shadow: 0 0 20px rgba(108, 99, 255, 0.4);
+  white-space: nowrap;
+}
+
+/* ── Clock Card ─────────────────────────────────────────── */
 .clock {
-    padding: 80px;
-    position: relative;
-    width: fit-content;
-    height: 250px;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
+  padding: var(--space-2xl) var(--space-xl);
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  background: var(--color-surface-glass);
+  box-shadow: var(--shadow-lg);
+  z-index: 1;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
+/* ── Time Digits Container ──────────────────────────────── */
 .clock .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+  gap: var(--space-xs);
 }
 
 .clock .container h2 {
-    font-size: 6em;
-    color: #fff;
+  font-size: clamp(1.5rem, 5vw, 4rem);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding: 0;
+  line-height: 1;
 }
 
+/* Digit blocks */
 .clock .container h2:nth-child(odd) {
-    padding: 5px 15px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-    margin: 0 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-glass);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
 }
 
-.clock .container h2#seconds {
-    color: #f9d524;
+/* Colons — accent color */
+.clock .container h2:nth-child(even) {
+  color: var(--color-accent-primary);
+  padding: 0 2px;
 }
 
-#ampm {
-    position: relative;
-    top: -50px;
-    font-size: 2em;
-    color: #fff;
-    font-weight: 700;
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .clock-section {
+    min-height: 50vh;
+  }
+
+  .clock-section::before {
+    width: 120px;
+    height: 120px;
+    top: 5%;
+    right: 2%;
+  }
+
+  .clock-section::after {
+    width: 100px;
+    height: 100px;
+    bottom: 5%;
+    left: 2%;
+  }
+
+  .clock {
+    padding: var(--space-xl) var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .clock .container h2 {
+    font-size: 1.25rem;
+  }
+
+  .clock .container h2:nth-child(odd) {
+    padding: var(--space-xs) var(--space-sm);
+  }
 }

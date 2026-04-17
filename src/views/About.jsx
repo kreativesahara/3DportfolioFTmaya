@@ -7,16 +7,17 @@ const About = () => {
   return (
     <div>
       <Navbar/>
-      <section className='mt-16 text-6xl font-bold '>
-        <h1>//// STORY BOARD</h1>
-      </section>
-      <main className='bg-indigo-600 w-full h-fit my-4'>
-        <section className='flex'>
-          <img src={CoverImage} />
-          <h1 className='font-bold text-2xl'>The Galactic War: <br />A Battle for Supremacy </h1>
-        </section> 
+      <div className='about-hero'>
+        <div className='section-heading'>
+          <h3>Story Board</h3>
+        </div>
+      </div>
+      <div className='about-content'>
         <section>
-         
+          <img src={CoverImage} alt="The Galactic War concept art" />
+          <h1>The Galactic War: <br />A Battle for Supremacy </h1>
+        </section>
+        <section>
           <p>
             The year is <strong>2342</strong>. The galaxy is on the brink of all-out war. Two factions, the technologically advanced Empyrean Alliance and the militaristic Dominion, vie for supremacy over countless star systems. Their conflict has ignited a cosmic fire, consuming planets and leaving entire civilizations in ruins.
             <br /><br />
@@ -46,10 +47,9 @@ const About = () => {
             <br />
             Will you join the Empyrean Alliance or the Dominion? The fate of the galaxy depends on your valor.
             </p>
-          <code className='text-2xl font-bold'>This is a cyber Arcade Game that we all longed to play on our <br /> Video Games</code>
+          <code>This is a cyber Arcade Game that we all longed to play on our <br /> Video Games</code>
         </section>
-       
-      </main>
+      </div>
       <Footer/>
     </div>
 

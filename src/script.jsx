@@ -5,7 +5,7 @@ import Contact from './views/Contact.jsx'
 import Playground from './views/Playground.jsx'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import './output.css'
+import './index.css'
 
 
 const router = createBrowserRouter([

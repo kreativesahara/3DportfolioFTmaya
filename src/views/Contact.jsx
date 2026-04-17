@@ -25,11 +25,13 @@ const Contact = () => {
   return (
     <div>
       <Navbar  />
-      <section className='mt-16 text-6xl font-bold '>
-        <h1>Contact Us</h1>
-      </section>
-      <main className='bg-indigo-600 w-full h-screen mt-16'>
-        <form className='w-1/3 mx-auto mt-20 bg-slate-300 p-10 rounded-lg'
+      <div className='contact-hero'>
+        <div className='section-heading'>
+          <h3>Contact Us</h3>
+        </div>
+      </div>
+      <main className='contact-main'>
+        <form className='contact-form'
           onSubmit={handleSubmit((data) => {
             alert(JSON.stringify(data));
           })}
@@ -43,7 +45,7 @@ const Contact = () => {
           <label>Email Address</label>
           <input {...register("email", { required: true, maxLength: 10 })} />
           {errors.email && <p className='invalid'>Please Enter Email</p>}
-          <input type="submit" />
+          <input type="submit" value="Send Message" />
         </form>
       </main>
       <Footer />

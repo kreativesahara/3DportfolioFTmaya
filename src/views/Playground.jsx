@@ -10,16 +10,26 @@ const Playground = () => {
     useEffect(() => {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current });
+        const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, alpha: true, antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
         // Add objects to the scene here
         const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00fffAA });
+        const material = new THREE.MeshBasicMaterial({ color: 0x6c63ff });
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
         camera.position.z = 2;
+
+        // Handle resize
+        const handleResize = () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        };
+        window.addEventListener('resize', handleResize);
+
         function animate(x,y) {
             cube.rotation.x -= y;
             cube.rotation.y -= x;
@@ -31,6 +41,7 @@ const Playground = () => {
 
         return () => {
             // Cleanup function
+            window.removeEventListener('resize', handleResize);
             renderer.dispose();
         };
     }, []);
@@ -38,9 +49,11 @@ const Playground = () => {
     return (
         <>
             <Navbar />
-            <h3>Playground</h3>
-            <p className='text-center'>ThreeJS playground area for experimenting with animations and object interactions.</p>
-            <canvas ref={canvasRef} className="w-full h-screen" />
+            <div className='playground-header'>
+                <h3>Playground</h3>
+                <p>ThreeJS playground area for experimenting with animations and object interactions.</p>
+            </div>
+            <canvas ref={canvasRef} id="playground-canvas" />
          {/* <Footer /> */}
         </>
     );
