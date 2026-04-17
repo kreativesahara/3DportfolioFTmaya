@@ -604,6 +604,40 @@ a:hover {
   --tw-contain-style:  ;
 }
 
+.container{
+  width: 100%;
+}
+
+@media (min-width: 640px){
+  .container{
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px){
+  .container{
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px){
+  .container{
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px){
+  .container{
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px){
+  .container{
+    max-width: 1536px;
+  }
+}
+
 .pointer-events-none{
   pointer-events: none;
 }
@@ -703,6 +737,10 @@ a:hover {
   margin-bottom: var(--space-md);
 }
 
+.mb-sm{
+  margin-bottom: var(--space-sm);
+}
+
 .mb-xl{
   margin-bottom: var(--space-xl);
 }
@@ -711,12 +749,20 @@ a:hover {
   margin-bottom: var(--space-xs);
 }
 
+.ml-1{
+  margin-left: 0.25rem;
+}
+
 .ml-2{
   margin-left: 0.5rem;
 }
 
 .mr-2{
   margin-right: 0.5rem;
+}
+
+.mr-\[0\.25em\]{
+  margin-right: 0.25em;
 }
 
 .mt-1{
@@ -751,8 +797,8 @@ a:hover {
   margin-top: var(--space-xl);
 }
 
-.mb-sm{
-  margin-bottom: var(--space-sm);
+.mt-2{
+  margin-top: 0.5rem;
 }
 
 .block{
@@ -779,10 +825,6 @@ a:hover {
   display: none;
 }
 
-.aspect-video{
-  aspect-ratio: 16 / 9;
-}
-
 .h-1{
   height: 0.25rem;
 }
@@ -791,8 +833,16 @@ a:hover {
   height: 2.75rem;
 }
 
+.h-16{
+  height: 4rem;
+}
+
 .h-24{
   height: 6rem;
+}
+
+.h-64{
+  height: 16rem;
 }
 
 .h-\[2px\]{
@@ -813,14 +863,6 @@ a:hover {
 
 .h-full{
   height: 100%;
-}
-
-.h-16{
-  height: 4rem;
-}
-
-.h-64{
-  height: 16rem;
 }
 
 .min-h-\[60vh\]{
@@ -1051,6 +1093,10 @@ a:hover {
 
 .overflow-x-hidden{
   overflow-x: hidden;
+}
+
+.whitespace-nowrap{
+  white-space: nowrap;
 }
 
 .rounded-full{
@@ -1311,10 +1357,6 @@ a:hover {
   padding-top: calc(var(--navbar-height) + var(--space-xl));
 }
 
-.pt-lg{
-  padding-top: var(--space-lg);
-}
-
 .pt-md{
   padding-top: var(--space-md);
 }
@@ -1447,10 +1489,6 @@ a:hover {
   line-height: 1.2;
 }
 
-.leading-\[1\.7\]{
-  line-height: 1.7;
-}
-
 .leading-\[1\.8\]{
   line-height: 1.8;
 }
@@ -1479,16 +1517,16 @@ a:hover {
   letter-spacing: 0.2rem;
 }
 
+.tracking-tight{
+  letter-spacing: -0.025em;
+}
+
 .tracking-tighter{
   letter-spacing: -0.05em;
 }
 
 .tracking-wide{
   letter-spacing: 0.025em;
-}
-
-.tracking-tight{
-  letter-spacing: -0.025em;
 }
 
 .text-accent-primary{
@@ -1575,6 +1613,11 @@ a:hover {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.blur{
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .blur-\[80px\]{
   --tw-blur: blur(80px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -1606,6 +1649,14 @@ a:hover {
   --tw-backdrop-blur: blur(24px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.transition{
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 .transition-\[width\]{
