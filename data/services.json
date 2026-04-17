@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "PRODUCT DESIGN",
+    "description": "Our team of experienced designers will elevate your product to new heights. From concept to launch, we provide end-to-end product design solutions tailored to your specific needs. Our services include user research, UI/UX design, prototyping, and design system development. Let us help you create a product that not only looks amazing but also delivers exceptional user experiences.",
+    "image": "HeaderImage"
+  },
+  {
+    "id": 2,
+    "title": "2D & 3D ANIMATION",
+    "description": "Our talented animation team specializes in crafting captivating visual stories. Whether you need engaging 2D animation for a playful brand identity or immersive 3D animation for a blockbuster film, we've got you covered. Our expertise in character development, storytelling, and technical animation ensures that your project stands out. Let's create something extraordinary together.",
+    "image": "HeaderImage"
+  },
+  {
+    "id": 3,
+    "title": "VIDEO RENDERING AND EDITING",
+    "description": "Our expert team provides top-tier video rendering and editing services to bring your vision to life. We handle complex projects with precision, ensuring seamless transitions, flawless visual effects, and optimized performance. From quick turnarounds to high-end productions, we deliver exceptional results. Let us handle the technicalities while you focus on the creative process.",
+    "image": "HeaderImage"
+  }
+]

@@ -1,60 +1,57 @@
-import React from 'react'
-//import Clock from 'react-clock'
-import Navbar from './components/navbar/Navbar'
-import Footer from './components/Footer'
-import HeaderImage from './assets/animateone.gif'
-import Clock from './components/clock/Clock'
+import React from 'react';
+import Navbar from './components/navbar/Navbar';
+import Footer from './components/Footer';
+import HeaderImage from './assets/animateone.gif';
+import Clock from './components/clock/Clock';
+import ServiceCard from './components/ServiceCard';
+import servicesData from '../data/services.json';
 
-function App  () {
+function App() {
   return (
-    < > 
+    <> 
       <Navbar />   
-      <header>
-        <article>
-          <div className='title'>
-            <span className='brand-name'>Kreativ_Saharaa</span> 
-            <span className='tagline'>Bring your imagination<br/> to life</span>
+      
+      {/* Hero Header */}
+      <header className="relative min-h-[75vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-[url(./assets/animateone.gif)] bg-cover bg-center bg-no-repeat text-text-primary">
+        {/* Dark Overlay Filter */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-[rgba(10,10,15,0.6)] via-[rgba(10,10,15,0.4)] to-[rgba(10,10,15,0.85)]" />
+        
+        <article className="relative z-20 flex flex-col items-center text-center gap-lg">
+          <div className="flex flex-col items-center text-center gap-lg">
+            <span className="text-[clamp(2.5rem,7vw,5rem)] font-black tracking-tighter bg-gradient-to-br from-accent-primary to-accent-secondary bg-clip-text text-transparent animate-reveal-up animate-pulse-glow">
+              Kreativ_Saharaa
+            </span> 
+            <span className="text-[clamp(1rem,2.5vw,1.5rem)] font-normal text-text-secondary max-w-[500px] leading-relaxed opacity-0 animate-reveal-up [animation-delay:0.2s] [animation-fill-mode:forwards]">
+              Bring your imagination<br/> to life
+            </span>
            </div>
         </article>
       </header>
+
       <Clock />
-      <div className='section-heading'>
-        <h3>Get Started</h3>
+
+      {/* Services Section Heading */}
+      <div className="text-center py-3xl px-lg pb-xl">
+        <h3 className="text-[clamp(1.75rem,4vw,3rem)] font-extrabold bg-gradient-to-br from-accent-primary to-accent-secondary bg-clip-text text-transparent">
+          Get Started
+        </h3>
       </div>
-      <main className='services-grid'>
-        <section className='service-card'>
-          <img src={HeaderImage} alt="Product design showcase" />
-          <h2>PRODUCT DESIGN</h2>
-          <p>Our team of experienced designers will elevate your product to 
-            new heights. From concept to launch, we provide end-to-end product 
-            design solutions tailored to your specific needs. Our services include user 
-            research, UI/UX design, prototyping, and design system development. Let us
-            help you create a product that not 
-            only looks amazing but also delivers exceptional user experiences.</p>
-        </section>
-        <section className='service-card'>
-          <img src={HeaderImage} alt="2D and 3D animation showcase" />
-          <h2>2D & 3D ANIMATION</h2>
-          <p>Our talented animation team specializes in crafting captivating visual
-            stories. Whether you need engaging 2D animation for a playful brand identity or
-            immersive 3D animation for a blockbuster film, we've got you covered. Our
-            expertise in character development, storytelling, and technical animation ensures
-            that your project stands out. Let's create something extraordinary together.</p>
-        </section>
-        <section className='service-card'>
-          <img src={HeaderImage} alt="Video rendering and editing showcase" />
-          <h2>VIDEO RENDERING AND EDITING</h2>
-          <p>Our expert team provides top-tier video rendering and editing services to
-            bring your vision to life. We handle complex projects with precision,
-            ensuring seamless transitions, flawless visual effects, and optimized
-            performance. From quick turnarounds to high-end productions, we deliver
-            exceptional results. Let us handle the technicalities while you focus on
-            the creative process.</p>
-        </section>
+
+      {/* Services Grid */}
+      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-xl px-lg py-2xl max-w-[1280px] mx-auto">
+        {servicesData.map((service) => (
+          <ServiceCard
+            key={service.id}
+            title={service.title}
+            description={service.description}
+            image={HeaderImage}
+          />
+        ))}
       </main>
-      <Footer/>
+
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
