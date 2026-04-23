@@ -27,6 +27,10 @@ const Playground = () => {
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
+        controls.enablePan = true; // Prevents the car from being moved off-screen
+        controls.minDistance = 2.5; // Zoom in limit
+        controls.maxDistance = 10;  // Zoom out limit
+        controls.maxPolarAngle = Math.PI / 1.999999999; // Prevents looking under the floor
 
         // Grid Helper
         const gridHelper = new THREE.GridHelper(10, 20, 0x6c63ff, 0x222222);
@@ -55,7 +59,7 @@ const Playground = () => {
             const box = new THREE.Box3().setFromObject(model);
             const size = box.getSize(new THREE.Vector3());
             const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 3.5 / maxDim; 
+            const scale = 6.5 / maxDim; 
             model.scale.set(scale, scale, scale);
             
             // Get bounding box of the scaled model and offset it to sit on (0,0,0)
