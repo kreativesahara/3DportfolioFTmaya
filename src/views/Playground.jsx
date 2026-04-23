@@ -14,7 +14,7 @@ const Playground = () => {
         
         const updateSize = () => {
             const width = window.innerWidth;
-            const height = window.innerHeight * 0.6; 
+            const height = window.innerHeight * 1; 
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
@@ -30,7 +30,7 @@ const Playground = () => {
 
         // Grid Helper
         const gridHelper = new THREE.GridHelper(10, 20, 0x6c63ff, 0x222222);
-        gridHelper.position.y = -1;
+        gridHelper.position.y = 0;
         gridHelper.material.opacity = 0.2;
         gridHelper.material.transparent = true;
         scene.add(gridHelper);
@@ -58,12 +58,12 @@ const Playground = () => {
             const scale = 3.5 / maxDim; 
             model.scale.set(scale, scale, scale);
             
-            // Get center of the scaled model and offset it to (0,0,0)
+            // Get bounding box of the scaled model and offset it to sit on (0,0,0)
             const scaledBox = new THREE.Box3().setFromObject(model);
-            const center = scaledBox.getCenter(new THREE.Vector3(0));
+            const center = scaledBox.getCenter(new THREE.Vector3());
             
             model.position.x = -center.x;
-            model.position.y = -center.y;
+            model.position.y = -scaledBox.min.y; 
             model.position.z = -center.z;
 
             // Reset rotation
@@ -114,7 +114,7 @@ const Playground = () => {
             {/* Full-width 100vw Canvas Area */}
             <canvas 
               ref={canvasRef} 
-              className="block w-full h-[60vh] m-0 border-0 rounded-none cursor-crosshair bg-bg-secondary/20 shadow-inner"
+              className="block w-full h-screen m-0 border-0 rounded-none cursor-crosshair bg-bg-secondary/20 shadow-inner"
             />
         </div>
     );
