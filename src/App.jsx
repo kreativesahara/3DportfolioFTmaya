@@ -20,7 +20,7 @@ function App() {
         <article className="relative z-20 flex flex-col items-center text-center gap-lg">
           <div className="flex flex-col items-center text-center gap-lg">
             <TypewriterCursor
-              text="Kreativ_Saharaa"
+              text="Kreativ_ Sahara"
               delay={200}
               speed={120}
               className="text-[clamp(2.5rem,7vw,5rem)] font-black tracking-tighter bg-gradient-to-br from-accent-primary to-accent-secondary bg-clip-text text-transparent"

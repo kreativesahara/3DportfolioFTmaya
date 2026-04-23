@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] md:text-left gap-xl p-2xl px-lg max-w-[1280px] mx-auto text-center">
         <div className="flex flex-col gap-sm items-center md:items-start">
           <div className="text-[clamp(1.25rem,3vw,1.75rem)] font-extrabold bg-gradient-to-br from-accent-primary to-accent-secondary bg-clip-text text-transparent">
-            Kreativ Saharaa
+            //// Kreativ_ Saharaa
           </div>
           <p className="mt-3 text-[0.875rem] max-w-sm text-center md:text-left">
             Bringing imagination to life through 3D, animation, and interactive experiences.

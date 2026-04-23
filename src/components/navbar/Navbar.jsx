@@ -26,7 +26,7 @@ const Navbar = () => {
     <div className="fixed top-0 left-0 w-full z-[1000] border-b border-border-color bg-bg-primary/80 backdrop-blur-xl h-24">
       <nav className="max-w-[1280px] h-full mx-auto px-lg flex items-center justify-between">
         <Link to='/' className="relative z-50 text-[clamp(1.25rem,4vw,1.75rem)] font-extrabold bg-gradient-brand bg-clip-text text-transparent opacity-100 visible hover:brightness-110 transition-all duration-base" id='navbar-brand'>
-          Kreativ Saharaa
+         //// Kreativ_ Sahara
         </Link>
 
         {/* Hamburger — visible on mobile only (md:hidden) */}

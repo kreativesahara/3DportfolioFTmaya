@@ -1,85 +1,87 @@
-# Animations Profile 
+# Kreativ Saharaa — 3D & Animation Portfolio
 
-# git clone https://github.com/JkuatPas/JKUATBIT2207JAVASCRIPTLEARNING-.git
-Cloning into 'JKUATBIT2207JAVASCRIPTLEARNING-'...
-remote: Enumerating objects: 159, done.
-remote: Counting objects: 100% (159/159), done.
-remote: Compressing objects: 100% (123/123), done.
-remote: Total 159 (delta 48), reused 107 (delta 25), pack-reused 0
-Receiving objects: 100% (159/159), 11.08 MiB | 685.00 KiB/s, done.
-Resolving deltas: 100% (48/48), done.
+[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.dot-js&logoColor=white)](https://threejs.org/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-mwong@DESKTOP-OB MINGW64 ~
-# cd JKUATBIT2207JAVASCRIPTLEARNING-
+A premium, interactive portfolio showcasing high-end **3D Modeling**, **Character Animation (Maya)**, and **WebGL-driven Web Experiences**. This project combines professional 3D artistry with modern web engineering to deliver a "wow" experience for potential clients and partners.
 
-~/JKUATBIT2207JAVASCRIPTLEARNING- (main)
-# git switch kiogoraMwongera
-branch 'kiogoraMwongera' set up to track 'origin/kiogoraMwongera'.
-Switched to a new branch 'kiogoraMwongera'
+---
 
-~/JKUATBIT2207JAVASCRIPTLEARNING- (kiogoraMwongera)
-# git status
-On branch kiogoraMwongera
-Your branch is up to date with 'origin/kiogoraMwongera'.
+## 🚀 WebGL & Animation Implementation
 
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-        .eslintrc.cjs
-        .gitignore
-        README.md
-        index.html
-        package-lock.json
-        package.json
-        public/
-        src/
-        vite.config.js
+The core of this portfolio's interactivity is powered by **WebGL** and **Three.js**, ensuring high-performance 3D rendering directly in the browser.
 
-nothing added to commit but untracked files present (use "git add" to track)
+### 1. Three.js Interactive Playground
+Located in the `/playground` route, this implementation features:
+- **Real-time Rendering**: A dedicated `WebGLRenderer` with anti-aliasing and alpha transparency for seamless UI integration.
+- **Dynamic Camera Control**: Perspective camera setup optimized for different viewing heights.
+- **Object Manipulation**: Direct interaction with 3D primitives, serving as a foundation for embedding complex Maya-exported GLTF/GLB models.
+- **Lifecycle Management**: Efficient scene disposal and window resizing logic to prevent memory leaks and ensure responsive 3D viewports.
 
-~/JKUATBIT2207JAVASCRIPTLEARNING- (kiogoraMwongera)
-# git add .
-warning: in the working copy of '.eslintrc.cjs', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'index.html', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'src/App.css', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'src/App.jsx', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'src/index.css', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'src/main.jsx', LF will be replaced by CRLF the next time Git touches it
-warning: in the working copy of 'vite.config.js', LF will be replaced by CRLF the next time Git touches it
+### 2. Framer Motion Integration
+To bridge the gap between static UI and 3D space, we use **Framer Motion**:
+- **Laser-Typewriter Effects**: Advanced stagger animations that simulate high-tech scanning/typing.
+- **Micro-interactions**: Smooth transitions and hover states that mirror the fluidity of 3D animations.
+- **Scroll-triggered Reveals**: Dynamic entry animations for service cards and sections.
 
-~/JKUATBIT2207JAVASCRIPTLEARNING- (kiogoraMwongera)
-# git commit -m 'Initial commit'
-[kiogoraMwongera b930921] Initial commit
- 17 files changed, 4430 insertions(+)
- create mode 100644 .eslintrc.cjs
- create mode 100644 .gitignore
- create mode 100644 README.md
- create mode 100644 index.html
- create mode 100644 package-lock.json
- create mode 100644 package.json
- create mode 100644 public/vite.svg
- create mode 100644 src/App.css
- create mode 100644 src/App.jsx
- create mode 100644 src/components/Footer.jsx
- create mode 100644 src/components/navbar/Navbar.jsx
- create mode 100644 src/components/navbar/navbar.css
- create mode 100644 src/index.css
- create mode 100644 src/main.jsx
- create mode 100644 src/views/About.jsx
- create mode 100644 src/views/Contact.jsx
- create mode 100644 vite.config.js
+### 3. High-Fidelity 3D Assets (FT. Maya)
+The portfolio is designed to showcase professional output from **Autodesk Maya**:
+- **2D & 3D Animation**: Specialized rendering techniques to preserve character detail and movement fluidity.
+- **Model Integration**: Support for GLB/GLTF formats with high-quality textures.
+- **Video Rendering**: Integration of pre-rendered 4K animation reels as backgrounds or embedded displays.
 
-~/JKUATBIT2207JAVASCRIPTLEARNING- (kiogoraMwongera)
-# git push origin kiogoraMwongera
-Enumerating objects: 25, done.
-Counting objects: 100% (25/25), done.
-Delta compression using up to 8 threads
-Compressing objects: 100% (21/21), done.
-Writing objects: 100% (24/24), 38.67 KiB | 2.97 MiB/s, done.
-Total 24 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
-To https://github.com/JkuatPas/JKUATBIT2207JAVASCRIPTLEARNING-.git
-   881bba7..b930921  kiogoraMwongera -> kiogoraMwongera
- 
+---
+
+## 🎨 Design System
+
+The project follows a **Sleek Dark Mode / Glassmorphism** aesthetic:
+- **Typography**: Modern, geometric fonts (Inter/Outfit) for a premium feel.
+- **Color Palette**: Deep obsidian backgrounds with vibrant neon accents (Accent Primary: `#6c63ff`, Accent Secondary: High-contrast cyan).
+- **Glassmorphism**: Backdrop blur effects (`backdrop-blur-[20px]`) and semi-transparent surfaces (`bg-surface-glass`) for a sophisticated layered look.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [React](https://reactjs.org/) with [Vite](https://vitejs.dev/) for ultra-fast builds.
+- **3D Engine**: [Three.js](https://threejs.org/) for WebGL implementations.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with customized design tokens.
+- **Animation**: [Framer Motion](https://www.framer.com/motion/) for UI logic.
+- **Routing**: [React Router](https://reactrouter.com/) for seamless page transitions.
+
+---
+
+## 📦 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/3DportfolioFTmaya.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Build for production:
+   ```bash
+   npm run build
+   ```
+
+---
+
+## 📄 License
+This project is for portfolio display purposes. All 3D assets and animations are property of **Kreativ Saharaa**.
+
+---
+
+*“Bring your imagination to life through the power of 3D.”*
