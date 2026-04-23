@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Navbar from '../components/navbar/Navbar';
 
 const Playground = () => {
@@ -21,28 +23,76 @@ const Playground = () => {
         updateSize();
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x6c63ff });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+        // Controls
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
 
-        camera.position.z = 2;
+        // Grid Helper
+        const gridHelper = new THREE.GridHelper(10, 20, 0x6c63ff, 0x222222);
+        gridHelper.position.y = -1;
+        gridHelper.material.opacity = 0.2;
+        gridHelper.material.transparent = true;
+        scene.add(gridHelper);
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        directionalLight.position.set(5, 10, 7.5);
+        scene.add(directionalLight);
+
+        const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+        scene.add(hemisphereLight);
+
+        let model;
+        const loader = new GLTFLoader();
+        loader.load('/models/porche_911.glb', (gltf) => {
+            model = gltf.scene;
+            
+            // Normalize scale and center to origin
+            const box = new THREE.Box3().setFromObject(model);
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 3.5 / maxDim; 
+            model.scale.set(scale, scale, scale);
+            
+            // Get center of the scaled model and offset it to (0,0,0)
+            const scaledBox = new THREE.Box3().setFromObject(model);
+            const center = scaledBox.getCenter(new THREE.Vector3(0));
+            
+            model.position.x = -center.x;
+            model.position.y = -center.y;
+            model.position.z = -center.z;
+
+            // Reset rotation
+            model.rotation.set(0, 0, 0);
+            
+            scene.add(model);
+            controls.target.set(0, 0, 0);
+        }, undefined, (error) => {
+            console.error('Error loading model:', error);
+        });
+
+        camera.position.set(4, 2, 4);
+        controls.update();
 
         const handleResize = () => {
             updateSize();
         };
         window.addEventListener('resize', handleResize);
 
-        function animate(x,y) {
-            cube.rotation.x -= y;
-            cube.rotation.y -= x;
+        function animate() {
+            controls.update();
             renderer.render(scene, camera);
-            requestAnimationFrame(() => animate(0.03 , y ));
+            requestAnimationFrame(animate);
         }
-        animate(0.001,0);
+        animate();
 
         return () => {
             window.removeEventListener('resize', handleResize);
+            controls.dispose();
             renderer.dispose();
         };
     }, []);
