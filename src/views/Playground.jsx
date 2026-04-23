@@ -27,15 +27,23 @@ const Playground = () => {
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
-        controls.enablePan = true; // Prevents the car from being moved off-screen
-        controls.minDistance = 2.5; // Zoom in limit
-        controls.maxDistance = 10;  // Zoom out limit
-        controls.maxPolarAngle = Math.PI / 1.999999999; // Prevents looking under the floor
+        controls.enablePan = true; 
+        controls.minDistance = 4; // Prevent zooming inside the model
+        controls.maxDistance = 8.5; // Prevent the model from becoming too small
+        controls.maxPolarAngle = Math.PI / 2;
+
+        // Custom Pan Limits
+        controls.addEventListener('change', () => {
+            const panLimit = 2.5; 
+            controls.target.x = Math.max(-panLimit, Math.min(controls.target.x, panLimit));
+            controls.target.z = Math.max(-panLimit, Math.min(controls.target.z, panLimit));
+            controls.target.y = Math.max(-0.5, Math.min(controls.target.y, 0.5));
+        });
 
         // Grid Helper
         const gridHelper = new THREE.GridHelper(10, 20, 0x6c63ff, 0x222222);
-        gridHelper.position.y = 0;
-        gridHelper.material.opacity = 0.2;
+        gridHelper.position.y = -0.5;
+        gridHelper.material.opacity = 0;
         gridHelper.material.transparent = true;
         scene.add(gridHelper);
 
@@ -67,14 +75,14 @@ const Playground = () => {
             const center = scaledBox.getCenter(new THREE.Vector3());
             
             model.position.x = -center.x;
-            model.position.y = -scaledBox.min.y; 
+            model.position.y = -scaledBox.min.y - 0.5; // Sit on the floor at -0.5
             model.position.z = -center.z;
 
             // Reset rotation
             model.rotation.set(0, 0, 0);
             
             scene.add(model);
-            controls.target.set(0, 0, 0);
+            controls.target.set(0, 0, 0); // Focus slightly above the floor level
         }, undefined, (error) => {
             console.error('Error loading model:', error);
         });
