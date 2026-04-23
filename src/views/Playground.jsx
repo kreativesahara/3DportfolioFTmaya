@@ -14,13 +14,20 @@ const Playground = () => {
         
         const updateSize = () => {
             const width = window.innerWidth;
-            const height = window.innerHeight * 1; 
+            const height = window.innerHeight; 
             renderer.setSize(width, height);
             camera.aspect = width / height;
+            
+            // Responsive FOV: Wider on mobile to fit the wide car model
+            camera.fov = width < 768 ? 85 : 75;
             camera.updateProjectionMatrix();
+
+            if (controls) {
+                controls.minDistance = width < 768 ? 5 : 4;
+                controls.maxDistance = width < 768 ? 15 : 10;
+            }
         };
 
-        updateSize();
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
         // Controls
@@ -31,6 +38,8 @@ const Playground = () => {
         controls.minDistance = 4; // Prevent zooming inside the model
         controls.maxDistance = 8.5; // Prevent the model from becoming too small
         controls.maxPolarAngle = Math.PI / 2;
+
+        updateSize(); // Now safe to call as controls are initialized above
 
         // Custom Pan Limits
         controls.addEventListener('change', () => {
@@ -67,7 +76,10 @@ const Playground = () => {
             const box = new THREE.Box3().setFromObject(model);
             const size = box.getSize(new THREE.Vector3());
             const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 6.5 / maxDim; 
+            
+            const isMobile = window.innerWidth < 768;
+            const targetSize = isMobile ? 5.5 : 7.5; 
+            const scale = targetSize / maxDim; 
             model.scale.set(scale, scale, scale);
             
             // Get bounding box of the scaled model and offset it to sit on (0,0,0)
@@ -113,20 +125,20 @@ const Playground = () => {
         <div className="w-screen overflow-x-hidden bg-bg-primary min-h-screen">
             <Navbar />
             
-            {/* Playground Header */}
-            <div className="pt-[calc(var(--navbar-height)+var(--space-xl))] text-center pb-xl px-lg">
-                <h3 className="text-[clamp(1.75rem,4vw,3rem)] font-extrabold bg-gradient-to-br from-accent-primary to-accent-secondary bg-clip-text text-transparent">
+            {/* Playground Header - Absolute Overlay */}
+            <div className="absolute top-0 left-0 w-full pt-[calc(var(--navbar-height)+var(--space-lg))] text-center z-10 pointer-events-none">
+                <h3 className="text-[clamp(1.75rem,4vw,3.5rem)] font-extrabold bg-gradient-to-br from-white via-accent-primary to-accent-secondary bg-clip-text text-transparent drop-shadow-2xl">
                   Playground
                 </h3>
-                <p className="text-text-secondary max-w-[600px] mx-auto mt-md text-base leading-relaxed">
-                  ThreeJS playground area for experimenting with animations and object interactions.
+                <p className="text-text-secondary max-w-[500px] mx-auto mt-sm text-sm md:text-base leading-relaxed opacity-80 backdrop-blur-sm bg-bg-primary/10 rounded-full px-md py-xs">
+                  Interactive 3D Engineering Space
                 </p>
             </div>
             
             {/* Full-width 100vw Canvas Area */}
             <canvas 
               ref={canvasRef} 
-              className="block w-full h-screen m-0 border-0 rounded-none cursor-crosshair bg-bg-secondary/20 shadow-inner"
+              className="block w-full h-screen m-0 border-0 rounded-none cursor-crosshair bg-bg-secondary/20"
             />
         </div>
     );
