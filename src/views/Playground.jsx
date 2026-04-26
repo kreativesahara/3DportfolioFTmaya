@@ -68,6 +68,22 @@ function buildGarage(scene) {
   scene.add(reflector);
   assets.push(reflector);
 
+  // ── Shadow-catching ground plane ───────────────────────────
+  // Reflector can't receive standard shadows, so this transparent
+  // ShadowMaterial plane sits just above it to catch realistic
+  // contact shadows from the car and props.
+  const shadowPlaneGeo = new THREE.PlaneGeometry(W, D);
+  const shadowPlaneMat = new THREE.ShadowMaterial({
+    opacity: 0.55,
+    color: 0x000000,
+  });
+  const shadowPlane = new THREE.Mesh(shadowPlaneGeo, shadowPlaneMat);
+  shadowPlane.rotation.x = -Math.PI / 2;
+  shadowPlane.position.y = floorY + 0.002;
+  shadowPlane.receiveShadow = true;
+  scene.add(shadowPlane);
+  assets.push(shadowPlane);
+
   // Slightly-above overlay for epoxy-sheen look
   const overlayGeo = new THREE.PlaneGeometry(W, D);
   const overlayMat = new THREE.MeshStandardMaterial({
@@ -79,7 +95,8 @@ function buildGarage(scene) {
   });
   const overlay = new THREE.Mesh(overlayGeo, overlayMat);
   overlay.rotation.x = -Math.PI / 2;
-  overlay.position.y = floorY + 0.005;
+  overlay.position.y = floorY + 0.007;
+  overlay.receiveShadow = true;
   scene.add(overlay);
   assets.push(overlay);
 
@@ -399,12 +416,21 @@ function buildLighting(scene) {
   scene.add(hemi);
   lights.push(hemi);
 
-  // Key light — warm overhead, slightly forward
-  const keyLight = new THREE.SpotLight(0xffeedd, 60, 30, Math.PI / 5, 0.6, 1.5);
-  keyLight.position.set(0, 6, 2);
+  // Key light — DirectionalLight for crisp, even car shadows
+  const keyLight = new THREE.DirectionalLight(0xffeedd, 1.8);
+  keyLight.position.set(2, 8, 4);
   keyLight.target.position.set(0, 0, 0);
   keyLight.castShadow = true;
-  keyLight.shadow.mapSize.set(1024, 1024);
+  keyLight.shadow.mapSize.set(2048, 2048);
+  keyLight.shadow.camera.near = 0.5;
+  keyLight.shadow.camera.far = 25;
+  keyLight.shadow.camera.left = -8;
+  keyLight.shadow.camera.right = 8;
+  keyLight.shadow.camera.top = 8;
+  keyLight.shadow.camera.bottom = -8;
+  keyLight.shadow.bias = -0.0005;
+  keyLight.shadow.normalBias = 0.02;
+  keyLight.shadow.radius = 3;  // soft shadow edge (PCFSoftShadowMap)
   scene.add(keyLight);
   scene.add(keyLight.target);
   lights.push(keyLight);
@@ -470,8 +496,10 @@ function buildLighting(scene) {
     spot.position.set(x, 6.4, z);
     spot.target.position.set(x * 0.3, 0, z * 0.3); // converge toward center
     spot.castShadow = true;
-    spot.shadow.mapSize.set(512, 512);
-    spot.shadow.bias = -0.001;
+    spot.shadow.mapSize.set(1024, 1024);
+    spot.shadow.bias = -0.0003;
+    spot.shadow.normalBias = 0.02;
+    spot.shadow.radius = 2;
     scene.add(spot);
     scene.add(spot.target);
     lights.push(spot);
