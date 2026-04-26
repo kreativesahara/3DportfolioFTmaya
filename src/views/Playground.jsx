@@ -121,6 +121,67 @@ function buildGarage(scene) {
   scene.add(stripe2);
   assets.push(stripe2);
 
+  // ── "PORSCHE / 911" Wall Sign (Michroma — Porsche-style font) ─
+  const signCanvas = document.createElement('canvas');
+  signCanvas.width = 1024;
+  signCanvas.height = 512;
+
+  const signTexture = new THREE.CanvasTexture(signCanvas);
+  signTexture.anisotropy = 4;
+
+  const signGeo = new THREE.PlaneGeometry(8, 4);
+  const signMat = new THREE.MeshBasicMaterial({
+    map: signTexture,
+    transparent: true,
+    depthWrite: false,
+    side: THREE.FrontSide,
+  });
+  const sign = new THREE.Mesh(signGeo, signMat);
+  sign.position.set(0, floorY + H / 2 + 0.5, -D / 2 + 0.03);
+  scene.add(sign);
+  assets.push(sign);
+
+  // Draw the sign text (called after font loads)
+  function drawSignText() {
+    const ctx = signCanvas.getContext('2d');
+    ctx.clearRect(0, 0, signCanvas.width, signCanvas.height);
+    ctx.textAlign = 'center';
+
+    // ─ Line 1: "PORSCHE" ─
+    const porscheY = 170;
+    ctx.shadowColor = '#6c63ff';
+    ctx.shadowBlur = 40;
+    ctx.fillStyle = '#6c63ff';
+    ctx.font = '130px Michroma, sans-serif';
+    ctx.fillText('PORSCHE', signCanvas.width / 2, porscheY);
+    // Crisp white pass
+    ctx.shadowColor = '#00d4ff';
+    ctx.shadowBlur = 20;
+    ctx.fillStyle = '#f0f0f5';
+    ctx.fillText('PORSCHE', signCanvas.width / 2, porscheY);
+
+    // ─ Line 2: "911" ─
+    const nineY = 370;
+    ctx.shadowColor = '#6c63ff';
+    ctx.shadowBlur = 50;
+    ctx.fillStyle = '#6c63ff';
+    ctx.font = '200px Michroma, sans-serif';
+    ctx.fillText('911', signCanvas.width / 2, nineY);
+    // Crisp white pass
+    ctx.shadowColor = '#00d4ff';
+    ctx.shadowBlur = 25;
+    ctx.fillStyle = '#f0f0f5';
+    ctx.fillText('911', signCanvas.width / 2, nineY);
+
+    signTexture.needsUpdate = true;
+  }
+
+  // Draw immediately (fallback font), then re-draw once Michroma loads
+  drawSignText();
+  document.fonts.ready.then(() => {
+    drawSignText();
+  });
+
   // ── Side Walls ─────────────────────────────────────────────
   const sideWallGeo = new THREE.PlaneGeometry(D, H);
 
