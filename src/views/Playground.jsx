@@ -146,11 +146,21 @@ function buildGarage(scene) {
     assets.push(neon);
   }
 
-  // ── Ceiling ────────────────────────────────────────────────
+  // ── Ceiling (transparent for aerial view) ──────────────────
   const ceilingGeo = new THREE.PlaneGeometry(W, D);
-  const ceiling = new THREE.Mesh(ceilingGeo, ceilingMat);
+  const transparentCeilingMat = new THREE.MeshStandardMaterial({
+    color: 0x0e0e16,
+    roughness: 1,
+    metalness: 0,
+    side: THREE.BackSide,
+    transparent: true,
+    opacity: 0.15,
+    depthWrite: false,
+  });
+  const ceiling = new THREE.Mesh(ceilingGeo, transparentCeilingMat);
   ceiling.rotation.x = Math.PI / 2;
   ceiling.position.y = floorY + H;
+  ceiling.renderOrder = 1; // render after opaques so transparency works
   scene.add(ceiling);
   assets.push(ceiling);
 
@@ -377,6 +387,45 @@ function buildLighting(scene) {
     tubePt.position.set(x, 5.8, z);
     scene.add(tubePt);
     lights.push(tubePt);
+  });
+
+  // ── Ceiling Spotlights (top-down dramatic lighting) ─────────
+  const spotPositions = [
+    { x:  0,   z:  0   },  // center — direct on car
+    { x: -3.5, z: -2   },  // front-left
+    { x:  3.5, z: -2   },  // front-right
+    { x:  0,   z:  4   },  // rear center
+  ];
+
+  spotPositions.forEach(({ x, z }, i) => {
+    const spot = new THREE.SpotLight(
+      i === 0 ? 0xffffff : 0xeeeeff,  // center is pure white, others cool-white
+      i === 0 ? 80 : 50,              // center brighter
+      20,                              // distance
+      Math.PI / 6,                     // angle (30° cone)
+      0.5,                             // penumbra (soft edge)
+      1.5                              // decay
+    );
+    spot.position.set(x, 6.4, z);
+    spot.target.position.set(x * 0.3, 0, z * 0.3); // converge toward center
+    spot.castShadow = true;
+    spot.shadow.mapSize.set(512, 512);
+    spot.shadow.bias = -0.001;
+    scene.add(spot);
+    scene.add(spot.target);
+    lights.push(spot);
+
+    // Visible spotlight housing (small cone hanging from ceiling)
+    const housingGeo = new THREE.ConeGeometry(0.15, 0.25, 8);
+    const housingMat = new THREE.MeshStandardMaterial({
+      color: 0x333344,
+      roughness: 0.5,
+      metalness: 0.4,
+    });
+    const housing = new THREE.Mesh(housingGeo, housingMat);
+    housing.position.set(x, 6.3, z);
+    housing.rotation.x = Math.PI; // point downward
+    scene.add(housing);
   });
 
   return lights;
